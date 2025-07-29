@@ -1,0 +1,10 @@
+0
+com_chien
+0
+com_tam
+0
+com_suon
+1
+0
+com_chien
+-1
