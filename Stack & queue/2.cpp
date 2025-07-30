@@ -19,8 +19,7 @@ struct Stack
 
 void Init(Stack &S)
 {
-    S.t=-1; //Khi stack chưa có phần tử nào thì top được khởi tạo là -1,
-            // nếu khởi tạo t = 0 là SAI vì khi đó sẽ hiểu top tại a[0]
+    S.t=-1; 
 };
 
 void printStack(Stack S)
@@ -43,8 +42,8 @@ void Push(Stack &S, int x)
     {
         return;
     }
-    S.t++; // tang chi so truoc
-    S.arr[S.t] = x; // them phan tu vao stack
+    S.t++; 
+    S.arr[S.t] = x; 
 }
 
 void Pop(Stack &S)

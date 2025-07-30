@@ -26,7 +26,6 @@ struct node
 struct Stack
 {
     node *pHead; // pTail khong co cung duoc
-
 };
 
 void Init(Stack &S)

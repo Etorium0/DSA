@@ -1,75 +1,58 @@
-/*###Begin banned keyword - each of the following line if appear in code will raise error. regex supported
-define
-include
-class
-struct
-###End banned keyword*/
-
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct Node{
-    int val;
-    Node* next;
-};
+long long swap_count = 0;
 
-struct List{
-    Node *head, *tail;
-};
-
-void list_initializing(List &l){
-    l.head = l.tail = NULL;
-}
-void add_tail(List &l, int x){
-    Node*p = new Node;
-    p->val = x;
-    p->next = NULL;
-
-    if (l.head == NULL){
-        l.head = l.tail = p;
-    } else {
-        l.tail->next = p;
-        l.tail = p;
+// Hàm hoán vị 2 phần tử và tăng số đếm
+void swap(int &a, int &b) {
+    if (&a != &b) {
+        int temp = a;
+        a = b;
+        b = temp;
+        swap_count++;
     }
 }
 
-void xuat(List &l){
-    for(Node *p = l.head; p != NULL; p = p->next){
-        cout << p->val << " ";
+// Hàm partition chọn pivot là phần tử giữa
+int partition(vector<int> &arr, int low, int high) {
+    int mid = low + (high - low) / 2;
+    swap(arr[mid], arr[high]); // Đưa pivot về cuối
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] > pivot) { // sắp xếp giảm dần
+            i++;
+            swap(arr[i], arr[j]);
+        }
     }
-    cout << endl;
+    swap(arr[i + 1], arr[high]); // Đưa pivot vào đúng vị trí
+    return i + 1;
 }
 
-void reverse_list(List &l){
-    if (l.head == NULL || l.head->next == NULL) return;
-
-    Node *prev = NULL, *current = l.head, *next = NULL;
-    l.tail = l.head;
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
+// Hàm QuickSort
+void quickSort(vector<int> &arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
     }
-    l.head = prev;
 }
 
-int main()
-{
-    List l; list_initializing(l);
-    cin.tie(NULL);
-    std::ios_base::sync_with_stdio(false);
-    int x;
-    do{
-        cin >> x;
-        if (x != 0) add_tail(l, x);
-        else break;
-    } while(true);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
 
-    for(int i = 0; i < 51; i++) reverse_list(l);
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int &x : arr) cin >> x;
 
-    xuat(l);
+    quickSort(arr, 0, n - 1);
+
+    for (int x : arr) cout << x << " ";
+    cout << "\nSo lan hoan vi: " << swap_count << '\n';
 
     return 0;
 }

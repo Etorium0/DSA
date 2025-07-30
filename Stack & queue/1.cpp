@@ -74,7 +74,7 @@ int main()
     {
         cin>>x;
         Push(S,x);
-
+ 
     }
     cout<<"Stack:";
     printStack(S);
